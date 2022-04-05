@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"trait":[["PyDescrGetProtocol",""],["PyDescrProtocol","Descriptor interface"],["PyDescrSetProtocol",""]]};
