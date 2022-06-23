@@ -354,7 +354,7 @@
 <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> {
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(
         <span class="ident">not</span>(<span class="ident">PyPy</span>),
-        <span class="ident">any</span>(<span class="ident">not</span>(<span class="ident">Py_LIMITED_API</span>), <span class="ident">Py_3_9</span>) <span class="comment">// Added to limited API in 3.9</span>
+        <span class="ident">any</span>(<span class="ident">Py_3_10</span>, <span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">Py_LIMITED_API</span>), <span class="ident">Py_3_9</span>)) <span class="comment">// Added to python in 3.9 but to limited API in 3.10</span>
     ))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">PyObject_CallNoArgs</span>(<span class="ident">func</span>: <span class="kw-2">*mut</span> <span class="ident">PyObject</span>) -&gt; <span class="kw-2">*mut</span> <span class="ident">PyObject</span>;
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">PyPy</span>, <span class="ident">link_name</span> <span class="op">=</span> <span class="string">&quot;PyPyObject_Call&quot;</span>)]</span>
