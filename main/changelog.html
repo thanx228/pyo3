@@ -675,7 +675,7 @@ Rust <code>std::cmp::Ordering</code> comparison. <a href="https://github.com/PyO
 <li>Deprecate FFI definitions <code>PyGen_NeedsFinalizing</code>, <code>PyImport_Cleanup</code> (removed in 3.9), and <code>PyOS_InitInterrupts</code> (3.10). <a href="https://github.com/PyO3/pyo3/pull/1348">#1348</a></li>
 <li>Deprecate FFI definition <code>PyOS_AfterFork</code> for Python 3.7 and up. <a href="https://github.com/PyO3/pyo3/pull/1348">#1348</a></li>
 <li>Deprecate FFI definitions <code>PyCoro_Check</code>, <code>PyAsyncGen_Check</code>, and <code>PyCoroWrapper_Check</code>, which have never been in the Python API (for the first two, it is possible to use <code>PyCoro_CheckExact</code> and <code>PyAsyncGen_CheckExact</code> instead; these are the actual functions provided by the Python API). <a href="https://github.com/PyO3/pyo3/pull/1348">#1348</a></li>
-<li>Deprecate FFI definitions for <code>PyUnicode_FromUnicode</code>, <code>PyUnicode_AsUnicode</code> and <code>PyUnicode_AsUnicodeAndSize</code>, which will be removed from 3.12 and up due to <a href="https://www.python.org/dev/peps/pep-0623/">PEP 613</a>. <a href="https://github.com/PyO3/pyo3/pull/1370">#1370</a></li>
+<li>Deprecate FFI definitions for <code>PyUnicode_FromUnicode</code>, <code>PyUnicode_AsUnicode</code> and <code>PyUnicode_AsUnicodeAndSize</code>, which will be removed from 3.12 and up due to <a href="https://www.python.org/dev/peps/pep-0623/">PEP 623</a>. <a href="https://github.com/PyO3/pyo3/pull/1370">#1370</a></li>
 </ul>
 <h3 id="removed-2"><a class="header" href="#removed-2">Removed</a></h3>
 <ul>
