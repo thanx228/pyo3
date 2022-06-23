@@ -1152,6 +1152,9 @@
 <span id="1146">1146</span>
 <span id="1147">1147</span>
 <span id="1148">1148</span>
+<span id="1149">1149</span>
+<span id="1150">1150</span>
+<span id="1151">1151</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::pyclass::boolean_struct::False</span>;
 <span class="comment">// Copyright (c) 2017-present PyO3 Project and Contributors</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::conversion::PyTryFrom</span>;
@@ -1801,7 +1804,10 @@
     <span class="doccomment">/// This is equivalent to the Python expression `self()`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">call0</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">py</span>: <span class="ident">Python</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">PyResult</span><span class="op">&lt;</span><span class="ident">PyObject</span><span class="op">&gt;</span> {
         <span class="macro">cfg_if::cfg_if!</span> {
-            <span class="kw">if</span> <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">Py_3_9</span>, <span class="ident">not</span>(<span class="ident">PyPy</span>)))]</span> {
+            <span class="kw">if</span> <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(
+                <span class="ident">not</span>(<span class="ident">PyPy</span>),
+                <span class="ident">any</span>(<span class="ident">Py_3_10</span>, <span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">Py_LIMITED_API</span>), <span class="ident">Py_3_9</span>)) <span class="comment">// PyObject_CallNoArgs was added to python in 3.9 but to limited API in 3.10</span>
+            ))]</span> {
                 <span class="comment">// Optimized path on python 3.9+</span>
                 <span class="kw">unsafe</span> {
                     <span class="ident">PyObject::from_owned_ptr_or_err</span>(<span class="ident">py</span>, <span class="ident">ffi::PyObject_CallNoArgs</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>()))
