@@ -52,23 +52,24 @@ if _pointer_size == 8:
 elif _pointer_size == 4:
     IS_32_BIT = True
 else:
-    raise RuntimeError("unexpected pointer size: " + repr(_pointer_size))
+    raise RuntimeError(f"unexpected pointer size: {repr(_pointer_size)}")
 IS_WINDOWS = sys.platform == "win32"
 
 if IS_WINDOWS:
     MIN_DATETIME = pdt.datetime(1971, 1, 2, 0, 0)
-    if IS_32_BIT:
-        MAX_DATETIME = pdt.datetime(3001, 1, 19, 4, 59, 59)
-    else:
-        MAX_DATETIME = pdt.datetime(3001, 1, 19, 7, 59, 59)
+    MAX_DATETIME = (
+        pdt.datetime(3001, 1, 19, 4, 59, 59)
+        if IS_32_BIT
+        else pdt.datetime(3001, 1, 19, 7, 59, 59)
+    )
+
+elif IS_32_BIT:
+    # TS ±2147483648 (2**31)
+    MIN_DATETIME = pdt.datetime(1901, 12, 13, 20, 45, 52)
+    MAX_DATETIME = pdt.datetime(2038, 1, 19, 3, 14, 8)
 else:
-    if IS_32_BIT:
-        # TS ±2147483648 (2**31)
-        MIN_DATETIME = pdt.datetime(1901, 12, 13, 20, 45, 52)
-        MAX_DATETIME = pdt.datetime(2038, 1, 19, 3, 14, 8)
-    else:
-        MIN_DATETIME = pdt.datetime(1, 1, 2, 0, 0)
-        MAX_DATETIME = pdt.datetime(9999, 12, 31, 18, 59, 59)
+    MIN_DATETIME = pdt.datetime(1, 1, 2, 0, 0)
+    MAX_DATETIME = pdt.datetime(9999, 12, 31, 18, 59, 59)
 
 PYPY = platform.python_implementation() == "PyPy"
 
@@ -201,7 +202,7 @@ def test_datetime(args, kwargs):
 @given(dt=st.datetimes())
 def test_datetime_tuple(dt):
     act = rdt.get_datetime_tuple(dt)
-    exp = dt.timetuple()[0:6] + (dt.microsecond,)
+    exp = dt.timetuple()[:6] + (dt.microsecond,)
 
     assert act == exp
 
@@ -214,7 +215,7 @@ def test_datetime_tuple_fold(dt):
 
     for dt in (dt_fold, dt_nofold):
         act = rdt.get_datetime_tuple_fold(dt)
-        exp = dt.timetuple()[0:6] + (dt.microsecond, dt.fold)
+        exp = dt.timetuple()[:6] + (dt.microsecond, dt.fold)
 
         assert act == exp
 
